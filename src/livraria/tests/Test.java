@@ -23,6 +23,6 @@ public class Test {
         Object object = new Object();
         object = livro;
         
-        System.out.println(object.getClass().getDeclaredMethod("getId")());
+        System.out.println(object.getClass().getDeclaredMethod("getId").);
     }
 }

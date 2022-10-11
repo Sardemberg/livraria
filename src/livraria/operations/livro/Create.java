@@ -4,6 +4,11 @@
  */
 package livraria.operations.livro;
 import livraria.operations.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+
+import livraria.models.*;
 
 /**
  *
@@ -11,14 +16,43 @@ import livraria.operations.*;
  */
 public class Create extends BaseOperation {
 
+    private Connection connection = null;
+
+    public Create(Connection connection){
+        this.connection = connection;
+    }
+
     @Override
     public boolean validateParams(Object livro) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Object process(Object livros) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Object process(Object params) {
+
+        Livro livro = (Livro) params;
+
+        try{
+            this.createLivro(livro);
+        } catch (SQLException e) {
+            System.out.println("Erro ao criar livro: " + e);
+        }
+
+        return livro;
     }
     
+    private void createLivro(Livro livro) throws SQLException{
+        String query = "insert into livros(nome, codigo, lingua, ano) values (?, ?, ?, ?)";
+
+        PreparedStatement stmt = this.connection.prepareStatement(query);
+
+        stmt.setString(0, livro.getNome());
+        stmt.setString(1, livro.getCodigo());
+        stmt.setString(2, livro.getLingua());
+        stmt.setInt(4, livro.getAno());
+
+        stmt.executeQuery();
+
+        System.out.println("Livro cadastrado com sucesso");
+    }
 }

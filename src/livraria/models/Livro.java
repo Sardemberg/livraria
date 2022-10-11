@@ -4,8 +4,6 @@
  */
 package livraria.models;
 
-import java.util.Date;
-
 /**
  *
  * @author lucas
@@ -15,7 +13,7 @@ public class Livro {
     private String codigo;
     private String nome;
     private String lingua;
-    private Date data;
+    private int ano;
 
     
     // Getter and settters
@@ -51,11 +49,11 @@ public class Livro {
         this.lingua = lingua;
     }
 
-    public Date getData() {
-        return data;
+    public int getAno() {
+        return ano;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setAno(int ano) {
+        this.ano = ano;
     }
 }
