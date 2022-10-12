@@ -47,12 +47,12 @@ public class Create extends BaseOperation {
 
         PreparedStatement stmt = this.connection.prepareStatement(query);
 
-        stmt.setString(0, livro.getNome());
-        stmt.setString(1, livro.getCodigo());
-        stmt.setString(2, livro.getLingua());
+        stmt.setString(1, livro.getNome());
+        stmt.setString(2, livro.getCodigo());
+        stmt.setString(3, livro.getLingua());
         stmt.setInt(4, livro.getAno());
 
-        stmt.executeQuery();
+        stmt.executeUpdate();
 
         System.out.println("Livro cadastrado com sucesso");
     }

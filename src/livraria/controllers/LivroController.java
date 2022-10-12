@@ -9,7 +9,7 @@ import livraria.connection.ConnectionDatabase;
 public class LivroController extends BaseController {
     Connection connection = null;
 
-    public LivroController(Connection connection){
+    public LivroController(){
         this.connection = new ConnectionDatabase().getConnection();
     }
 
@@ -30,7 +30,7 @@ public class LivroController extends BaseController {
     @Override
     public boolean create(Object object) {
         Create operationCreate = new Create(this.connection);
-        boolean result = (boolean) operationCreate.process(operationCreate);
+        boolean result = (boolean) operationCreate.process(object);
         return result;
     }
 

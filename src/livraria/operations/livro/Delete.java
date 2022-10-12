@@ -39,9 +39,9 @@ public class Delete extends BaseOperation {
         String query = "delete from livros where id = ?";
 
         PreparedStatement stmt = this.connection.prepareStatement(query);
-        stmt.setInt(0, id);
+        stmt.setInt(1, id);
 
-        stmt.executeQuery();
+        stmt.executeUpdate();
         System.out.println("Livro deletado com sucesso!");
     }
 }

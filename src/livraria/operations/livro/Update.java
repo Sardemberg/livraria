@@ -37,13 +37,14 @@ public class Update extends BaseOperation {
 
         PreparedStatement stmt = this.connection.prepareStatement(query);
 
-        stmt.setString(0, livro.getNome());
-        stmt.setString(1, livro.getLingua());
-        stmt.setString(2, livro.getCodigo());
-        stmt.setInt(3, livro.getAno());
-        stmt.setInt(4, livro.getId());
+        stmt.setString(1, livro.getNome());
+        stmt.setString(2, livro.getLingua());
+        stmt.setString(3, livro.getCodigo());
+        stmt.setInt(4, livro.getAno());
+        stmt.setInt(5, livro.getId());
 
-        stmt.executeQuery();
+        stmt.executeUpdate();
+        System.out.println("Livro atualizado com sucesso!");
     }
     
 }

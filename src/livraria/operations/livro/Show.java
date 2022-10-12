@@ -34,7 +34,7 @@ public class Show extends BaseOperation {
         Livro livro = Livro.class.cast(params);
         
         try {
-            result = this.getLivroById(livro.getId());
+            result = this.getLivroById(livro);
         } catch (SQLException ex) {
             Logger.getLogger(Show.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -42,22 +42,23 @@ public class Show extends BaseOperation {
         return result;
     }
     
-    public Livro getLivroById(int id) throws SQLException{
-        String query = "select * from livros where id = ?";
+    public Livro getLivroById(Livro livro) throws SQLException{
+        String query = "select * from livros where nome = ?";
         
         PreparedStatement stmtShowLivro = 
                 this.connection.prepareStatement(query);
         
-        stmtShowLivro.setInt(1, id);
+        stmtShowLivro.setString(1, livro.getNome());
         
         ResultSet result = stmtShowLivro.executeQuery();
         
-        Livro livro = new Livro();
+        Livro livro_r = new Livro();
         
-        livro.setCodigo(result.getString("codigo"));
-        livro.setLingua(result.getString("lingua"));
-        livro.setNome(result.getString("nome"));
+        livro_r.setCodigo(result.getString("codigo"));
+        livro_r.setLingua(result.getString("lingua"));
+        livro_r.setNome(result.getString("nome"));
+        livro_r.setAno(result.getInt("ano"));
         
-        return livro;
+        return livro_r;
     }
 }

@@ -41,7 +41,7 @@ public class ListAll extends BaseOperation {
         PreparedStatement stmt = this.connection.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
 
-        ArrayList<Livro> livros_results = null;
+        ArrayList<Livro> livros_results = new ArrayList<Livro>();
 
         while(rs.next()){
             Livro livro = new Livro();
