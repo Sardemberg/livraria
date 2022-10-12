@@ -7,7 +7,7 @@ public abstract class BaseController {
     /*
      * Method to return arraylist of all values for entity
      */
-    public abstract ArrayList<Object> showAll();
+    public abstract ArrayList<?> showAll();
 
     /*
      * Method to return especific value for a entity
@@ -24,4 +24,8 @@ public abstract class BaseController {
      */
     public abstract boolean delete(Object object);
 
+    /*
+     * Method to update a value for a entity
+     */
+    public abstract boolean update(Object object);
 }

@@ -12,7 +12,7 @@ import livraria.models.Livro;
 public class ListAll extends BaseOperation {
     private Connection connection = null;
 
-    public void ListAll(Connection connection){
+    public ListAll(Connection connection){
         this.connection = connection;
     }
 

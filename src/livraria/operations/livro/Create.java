@@ -36,9 +36,10 @@ public class Create extends BaseOperation {
             this.createLivro(livro);
         } catch (SQLException e) {
             System.out.println("Erro ao criar livro: " + e);
+            return false;
         }
 
-        return livro;
+        return true;
     }
     
     private void createLivro(Livro livro) throws SQLException{

@@ -10,7 +10,7 @@ import livraria.operations.BaseOperation;
 public class Delete extends BaseOperation {
     public Connection connection = null;
 
-    public void Delete(Connection connection){
+    public Delete(Connection connection){
         this.connection = connection;
     }
 
@@ -29,9 +29,10 @@ public class Delete extends BaseOperation {
             this.deleteLivro(livro.getId());
         }catch(SQLException e){
             System.out.println("Erro ao deletar livro" + e);
+            return false;
         }
 
-        return null;
+        return true;
     }
 
     private void deleteLivro(int id) throws SQLException{
