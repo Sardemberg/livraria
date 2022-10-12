@@ -41,7 +41,7 @@ public class Update extends BaseOperation {
     }
     
     private void updateAutor(Autor autor) throws SQLException{
-        String query = "update livros set nome = ?, biografia = ?, nacionalidade = ?, data_nasc = ? where id = ?";
+        String query = "update autores set nome = ?, biografia = ?, nacionalidade = ?, data_nasc = ? where id = ?";
 
         PreparedStatement stmt = this.connection.prepareStatement(query);
 

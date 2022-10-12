@@ -41,9 +41,11 @@ public class Create extends BaseOperation {
     }
     
     private void createAutor(Autor autor) throws SQLException{
-        String query = "insert into livros(nome, data_nasc, nacionalidade, biografia) values (?, ?, ?, ?)";
+        String query = "insert into autores(nome, data_nasc, nacionalidade, biografia) values (?, ?, ?, ?)";
 
         PreparedStatement stmt = this.connection.prepareStatement(query);
+        
+        System.out.println(autor.getData_nasc());
 
         stmt.setString(1, autor.getNome());
         stmt.setDate(2, autor.getData_nasc());
@@ -52,6 +54,6 @@ public class Create extends BaseOperation {
 
         stmt.executeUpdate();
 
-        System.out.println("Livro cadastrado com sucesso");
+        System.out.println("Autor cadastrado com sucesso");
     }
 }
