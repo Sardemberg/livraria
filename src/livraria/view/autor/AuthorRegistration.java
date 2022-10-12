@@ -6,6 +6,8 @@ package livraria.view.autor;
 
 import livraria.models.Autor;
 import livraria.controllers.AutorController;
+import java.sql.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -136,6 +138,22 @@ public class AuthorRegistration extends javax.swing.JFrame {
 
     private void cadastrarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarAutorActionPerformed
         Autor autor = new Autor();
+        AutorController controllerAutor = new AutorController();
+        
+        Date data_nasc = Date.valueOf(nascimentoAutor.getText());
+        
+        autor.setNome(nameAutor.getText());
+        autor.setBiografia(biografiaAutor.getText());
+        autor.setData_nasc(data_nasc);
+        autor.setNacionalidade(nacionalidadeAutor.getText());
+        
+        boolean result = controllerAutor.create(autor);
+        
+        if(result){
+            JOptionPane.showMessageDialog(null, "Autor cadastrado com sucesso!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar o livro");
+        }
     }//GEN-LAST:event_cadastrarAutorActionPerformed
 
     /**
