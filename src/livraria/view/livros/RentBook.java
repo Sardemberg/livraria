@@ -6,6 +6,7 @@ package livraria.view.livros;
 
 import java.awt.Button;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import livraria.models.Livro;
 import livraria.controllers.LivroController;
@@ -22,23 +23,21 @@ public class RentBook extends javax.swing.JFrame {
     public RentBook() {
         initComponents();
     }
-    
-    public void performInsertTable(ArrayList<Livro> livros){
+
+    public void performInsertTable(ArrayList<Livro> livros) {
         DefaultTableModel model = (DefaultTableModel) tableLivros.getModel();
-       
-        for(int i = 0; i < model.getRowCount(); i++){
+
+        for (int i = 0; i < model.getRowCount(); i++) {
             model.removeRow(i);
         }
-        
-        for(Livro livro: livros){
-            Button removeButton = new Button();
-            
-            model.addRow(new Object[] {
-                livro.getCodigo(), 
-                livro.getNome(), 
-                livro.getLingua(), 
-                livro.getAno(),
-            });
+
+        for (Livro livro : livros) {
+            model.addRow(new Object[]{
+                livro.getId(),
+                livro.getCodigo(),
+                livro.getNome(),
+                livro.getLingua(),
+                livro.getAno(),});
         }
     }
 
@@ -54,8 +53,8 @@ public class RentBook extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableLivros = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
+        removeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,11 +63,11 @@ public class RentBook extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome", "Língua", "Ano"
+                "Id", "Código", "Nome", "Língua", "Ano"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -84,26 +83,33 @@ public class RentBook extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
+        tableLivros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableLivrosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableLivros);
         if (tableLivros.getColumnModel().getColumnCount() > 0) {
-            tableLivros.getColumnModel().getColumn(2).setResizable(false);
+            tableLivros.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Livros Cadastrados");
 
-        jButton1.setText("Editar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        editButton.setText("Editar");
+        editButton.setEnabled(false);
+        editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                editButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Remover");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        removeButton.setText("Remover");
+        removeButton.setEnabled(false);
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                removeButtonActionPerformed(evt);
             }
         });
 
@@ -114,14 +120,13 @@ public class RentBook extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(99, 99, 99)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(editButton)
+                        .addGap(341, 341, 341)
+                        .addComponent(removeButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(175, 175, 175)
-                .addComponent(jButton2)
-                .addGap(180, 180, 180))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,8 +137,8 @@ public class RentBook extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(editButton)
+                    .addComponent(removeButton))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -145,13 +150,31 @@ public class RentBook extends javax.swing.JFrame {
         performInsertTable(controllerLivro.showAll());
     }//GEN-LAST:event_tableLivrosAncestorAdded
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        int selectedRow = tableLivros.getSelectedRow();
+        Livro livro = new Livro();
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        livro.setId((int) tableLivros.getValueAt(selectedRow, 0));
+        livro.setCodigo(String.valueOf(tableLivros.getValueAt(selectedRow, 1)));
+        livro.setNome(String.valueOf(tableLivros.getValueAt(selectedRow, 2)));
+        livro.setLingua(String.valueOf(tableLivros.getValueAt(selectedRow,3)));
+        livro.setAno((int) tableLivros.getValueAt(selectedRow, 4));
+        
+        new BookUpdate(livro).show();
+    }//GEN-LAST:event_editButtonActionPerformed
+
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_removeButtonActionPerformed
+
+    private void tableLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableLivrosMouseClicked
+        int selectedRow = tableLivros.getSelectedRow();
+
+        if (selectedRow != -1) {
+            editButton.setEnabled(true);
+            removeButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_tableLivrosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -190,10 +213,10 @@ public class RentBook extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton editButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton removeButton;
     private javax.swing.JTable tableLivros;
     // End of variables declaration//GEN-END:variables
 }

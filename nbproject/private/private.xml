@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/operations/livro/Create.java</file>
-            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/operations/BaseOperation.java</file>
-            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/operations/livro/Show.java</file>
-            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/operations/livro/Delete.java</file>
-            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/tests/Test.java</file>
-            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/operations/livro/ListAll.java</file>
+            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/view/livros/BookRegistration.java</file>
+            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/view/autor/AuthorRegistration.java</file>
             <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/models/Livro.java</file>
-            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/connection/ConnectionDatabase.java</file>
+            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/view/livros/RentBook.java</file>
         </group>
     </open-files>
 </project-private>
