@@ -191,6 +191,7 @@ public class RentAuthor extends javax.swing.JFrame {
         autor.setId((int) tableAutor.getValueAt(selectedRow, 0));
         autor.setNome((String) tableAutor.getValueAt(selectedRow, 1));
         autor.setNacionalidade((String) tableAutor.getValueAt(selectedRow, 3));
+        autor.setData_nasc((Date) tableAutor.getValueAt(selectedRow, 2));
         autor.setBiografia((String) tableAutor.getValueAt(selectedRow, 4));
         
         new AuthorUpdate(autor).show();

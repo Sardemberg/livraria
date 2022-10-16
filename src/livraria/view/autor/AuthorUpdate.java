@@ -4,6 +4,9 @@
  */
 package livraria.view.autor;
 
+import java.sql.Date;
+import javax.swing.JOptionPane;
+import livraria.controllers.AutorController;
 import livraria.models.Autor;
 
 /**
@@ -12,6 +15,7 @@ import livraria.models.Autor;
  */
 public class AuthorUpdate extends javax.swing.JFrame {
     Autor autor = null;
+    AutorController autorController = new AutorController();
     
     /**
      * Creates new form AuthorUpdate
@@ -150,7 +154,22 @@ public class AuthorUpdate extends javax.swing.JFrame {
     }//GEN-LAST:event_nacionalidadeAutorActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        Autor newAutor = new Autor();
+        AutorController autorController = new AutorController();
+        
+        newAutor.setNome(nomeAutor.getText());
+        newAutor.setId(this.autor.getId());
+        newAutor.setBiografia(biografiaAutor.getText());
+        newAutor.setData_nasc(Date.valueOf(dataNascimento.getText()));
+        newAutor.setNacionalidade(nacionalidadeAutor.getText());
+        
+        boolean result = autorController.update(newAutor);
+        
+        if(result){
+            JOptionPane.showMessageDialog(null, "Autor atualizado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao dar update no autor");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel1AncestorAdded
