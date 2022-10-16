@@ -2,7 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.screen_poo;
+package livraria.view.autor;
+
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import livraria.models.Autor;
+import livraria.controllers.AutorController;
+import java.sql.Date;
+import livraria.view.autor.AuthorUpdate;
 
 /**
  *
@@ -16,6 +24,26 @@ public class RentAuthor extends javax.swing.JFrame {
     public RentAuthor() {
         initComponents();
     }
+    
+    public void insertTable(ArrayList<Autor> autores){
+        DefaultTableModel model = (DefaultTableModel) tableAutor.getModel();
+        
+        for(int i = 0; i < model.getRowCount(); i++){
+            model.removeRow(i);
+        }
+        
+        for(Autor autor: autores){
+            Object[] rowData = {
+                autor.getId(),
+                autor.getNome(),
+                autor.getData_nasc(),
+                autor.getNacionalidade(),
+                autor.getBiografia(),
+            };
+            
+            model.addRow(rowData);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,47 +55,64 @@ public class RentAuthor extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableAutor = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        buttonEditar = new javax.swing.JButton();
+        buttonRemover = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableAutor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Nome", "Data Nascimento", "Nacionalidades", "Biografia", "Ações"
+                "ID", "Nome", "Data Nascimento", "Nacionalidade", "Biografia"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tableAutor.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tableAutorAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        tableAutor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableAutorMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableAutor);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Autores Cadastrados");
 
-        jButton1.setText("Atualizar");
+        buttonEditar.setText("Atualizar");
+        buttonEditar.setEnabled(false);
+        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Excluir");
+        buttonRemover.setText("Excluir");
+        buttonRemover.setEnabled(false);
+        buttonRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,14 +120,14 @@ public class RentAuthor extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(109, 109, 109)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(buttonEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(109, Short.MAX_VALUE))
+                        .addComponent(buttonRemover))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,16 +135,66 @@ public class RentAuthor extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonRemover)
+                    .addComponent(buttonEditar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableAutorAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tableAutorAncestorAdded
+        AutorController autorController = new AutorController();
+        ArrayList<Autor> autores = autorController.showAll();
+        insertTable(autores);
+    }//GEN-LAST:event_tableAutorAncestorAdded
+
+    private void tableAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAutorMouseClicked
+        int selectedRow = tableAutor.getSelectedRow();
+        
+        if(selectedRow != -1){
+            buttonEditar.setEnabled(true);
+            buttonRemover.setEnabled(true);
+        }
+    }//GEN-LAST:event_tableAutorMouseClicked
+
+    private void buttonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoverActionPerformed
+        int selectedRow = tableAutor.getSelectedRow();
+        
+        int idAutor = (int) tableAutor.getValueAt(selectedRow, 0);
+        
+        Autor autor = new Autor();
+        autor.setId(idAutor);
+        
+        AutorController autorController = new AutorController();
+        
+        int escolha = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir?");
+        
+        if(escolha == 0){
+            boolean result = autorController.delete(autor);
+        
+            if(result){
+                 JOptionPane.showMessageDialog(null, "Autor excluído com sucesso!");
+            } else {
+                 JOptionPane.showMessageDialog(null, "Erro ao excluir autor!");
+            }
+        }
+    }//GEN-LAST:event_buttonRemoverActionPerformed
+
+    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+        Autor autor = new Autor();
+        int selectedRow = tableAutor.getSelectedRow();
+        
+        autor.setId((int) tableAutor.getValueAt(selectedRow, 0));
+        autor.setNome((String) tableAutor.getValueAt(selectedRow, 1));
+        autor.setNacionalidade((String) tableAutor.getValueAt(selectedRow, 3));
+        autor.setBiografia((String) tableAutor.getValueAt(selectedRow, 4));
+        
+        new AuthorUpdate(autor).show();
+    }//GEN-LAST:event_buttonEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,10 +232,10 @@ public class RentAuthor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton buttonEditar;
+    private javax.swing.JButton buttonRemover;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tableAutor;
     // End of variables declaration//GEN-END:variables
 }

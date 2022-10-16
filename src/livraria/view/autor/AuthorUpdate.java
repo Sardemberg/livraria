@@ -2,19 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.screen_poo;
+package livraria.view.autor;
+
+import livraria.models.Autor;
 
 /**
  *
  * @author admin
  */
 public class AuthorUpdate extends javax.swing.JFrame {
-
+    Autor autor = null;
+    
     /**
      * Creates new form AuthorUpdate
      */
-    public AuthorUpdate() {
+    public AuthorUpdate(Autor autor) {
+        this.autor = autor;
         initComponents();
+    }
+
+    private AuthorUpdate() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -27,43 +35,52 @@ public class AuthorUpdate extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        nomeAutor = new javax.swing.JTextField();
+        dataNascimento = new javax.swing.JTextField();
+        nacionalidadeAutor = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        biografiaAutor = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Atualizar Autor");
-
-        jTextField1.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("Novo nome");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        jLabel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jLabel1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("Nova data de nascimento");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        nomeAutor.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        nomeAutor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nomeAutor.setText("Novo nome");
+        nomeAutor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                nomeAutorActionPerformed(evt);
             }
         });
 
-        jTextField3.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.setText("Nova data de nacionalidade");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        dataNascimento.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        dataNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        dataNascimento.setText("Nova data de nascimento");
+        dataNascimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                dataNascimentoActionPerformed(evt);
+            }
+        });
+
+        nacionalidadeAutor.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        nacionalidadeAutor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nacionalidadeAutor.setText("Nacionalidade");
+        nacionalidadeAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nacionalidadeAutorActionPerformed(evt);
             }
         });
 
@@ -75,13 +92,13 @@ public class AuthorUpdate extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("                        Nova Biografia");
-        jTextArea1.setToolTipText("");
-        jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jScrollPane1.setViewportView(jTextArea1);
+        biografiaAutor.setColumns(20);
+        biografiaAutor.setLineWrap(true);
+        biografiaAutor.setRows(5);
+        biografiaAutor.setText("                        Nova Biografia");
+        biografiaAutor.setToolTipText("");
+        biografiaAutor.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jScrollPane1.setViewportView(biografiaAutor);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,9 +110,9 @@ public class AuthorUpdate extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                        .addComponent(jTextField1)
+                        .addComponent(nacionalidadeAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                        .addComponent(dataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                        .addComponent(nomeAutor)
                         .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(232, Short.MAX_VALUE))
         );
@@ -105,11 +122,11 @@ public class AuthorUpdate extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addComponent(nomeAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addComponent(dataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                .addComponent(nacionalidadeAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
@@ -120,21 +137,27 @@ public class AuthorUpdate extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nomeAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeAutorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nomeAutorActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void dataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataNascimentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_dataNascimentoActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void nacionalidadeAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacionalidadeAutorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_nacionalidadeAutorActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel1AncestorAdded
+        nomeAutor.setText(this.autor.getNome());
+        nacionalidadeAutor.setText(this.autor.getNacionalidade());
+        biografiaAutor.setText(this.autor.getBiografia());
+    }//GEN-LAST:event_jLabel1AncestorAdded
 
     /**
      * @param args the command line arguments
@@ -172,12 +195,12 @@ public class AuthorUpdate extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea biografiaAutor;
+    private javax.swing.JTextField dataNascimento;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField nacionalidadeAutor;
+    private javax.swing.JTextField nomeAutor;
     // End of variables declaration//GEN-END:variables
 }
