@@ -3,7 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package livraria.view.livros;
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
 import livraria.models.Livro;
+import livraria.controllers.LivroController;
+import livraria.controllers.AutorController;
+import livraria.models.Autor;
 
 /**
  *
@@ -37,8 +42,8 @@ public class BookUpdate extends javax.swing.JFrame {
         inputName = new javax.swing.JTextField();
         inputLingua = new javax.swing.JTextField();
         inputAno = new javax.swing.JTextField();
-        inputEditora = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        autorCbb = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,15 +96,6 @@ public class BookUpdate extends javax.swing.JFrame {
             }
         });
 
-        inputEditora.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        inputEditora.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        inputEditora.setText("Nova editora");
-        inputEditora.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputEditoraActionPerformed(evt);
-            }
-        });
-
         jButton1.setText("Atualizar Livro");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 153)));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -108,21 +104,24 @@ public class BookUpdate extends javax.swing.JFrame {
             }
         });
 
+        autorCbb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o autor" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(232, 232, 232)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inputAno, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                    .addComponent(inputEditora, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                    .addComponent(inputLingua, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                    .addComponent(inputName, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                    .addComponent(inputCode)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(232, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(autorCbb, 0, 244, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(inputAno)
+                        .addComponent(inputLingua)
+                        .addComponent(inputName)
+                        .addComponent(inputCode)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)))
+                .addGap(229, 229, 229))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,14 +136,15 @@ public class BookUpdate extends javax.swing.JFrame {
                 .addComponent(inputLingua, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputAno, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(inputEditora, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
+                .addComponent(autorCbb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void inputCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputCodeActionPerformed
@@ -163,19 +163,39 @@ public class BookUpdate extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_inputAnoActionPerformed
 
-    private void inputEditoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputEditoraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputEditoraActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        Livro livro = new Livro();
+        LivroController controllerLivro = new LivroController();
+        
+        livro.setId(this.livro.getId());
+        livro.setAno(Integer.parseInt(inputAno.getText()));
+        livro.setCodigo(inputCode.getText());
+        livro.setNome(inputName.getText());
+        livro.setLingua(inputLingua.getText());
+        livro.setAutor((String) autorCbb.getSelectedItem());
+        
+        boolean result = controllerLivro.update(livro);
+        
+        if(result){
+            JOptionPane.showMessageDialog(null, "Livro atualizado com sucesso!");
+            this.show(false);
+        }else{
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar livro");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel1AncestorAdded
         inputCode.setText(this.livro.getCodigo());
-        inputName.setText(this.getName());
+        inputName.setText(this.livro.getNome());
         inputAno.setText(String.valueOf(this.livro.getAno()));
         inputLingua.setText(this.livro.getLingua());
+        
+        AutorController autorController = new AutorController();
+        ArrayList<Autor> autores = autorController.showAll();
+        
+        for(Autor autor: autores){
+           autorCbb.addItem(autor.getNome());
+        }
     }//GEN-LAST:event_jLabel1AncestorAdded
 
     /**
@@ -214,9 +234,9 @@ public class BookUpdate extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> autorCbb;
     private javax.swing.JTextField inputAno;
     private javax.swing.JTextField inputCode;
-    private javax.swing.JTextField inputEditora;
     private javax.swing.JTextField inputLingua;
     private javax.swing.JTextField inputName;
     private javax.swing.JButton jButton1;

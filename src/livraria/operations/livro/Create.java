@@ -43,7 +43,7 @@ public class Create extends BaseOperation {
     }
     
     private void createLivro(Livro livro) throws SQLException{
-        String query = "insert into livros(nome, codigo, lingua, ano) values (?, ?, ?, ?)";
+        String query = "insert into livros(nome, codigo, lingua, ano, autor) values (?, ?, ?, ?, ?)";
 
         PreparedStatement stmt = this.connection.prepareStatement(query);
 
@@ -51,6 +51,7 @@ public class Create extends BaseOperation {
         stmt.setString(2, livro.getCodigo());
         stmt.setString(3, livro.getLingua());
         stmt.setInt(4, livro.getAno());
+        stmt.setString(5, livro.getAutor());
 
         stmt.executeUpdate();
 

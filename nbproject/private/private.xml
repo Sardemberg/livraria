@@ -9,8 +9,11 @@
             <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/controllers/LivroController.java</file>
             <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/operations/livro/ListAll.java</file>
             <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/view/livros/BookUpdate.java</file>
+            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/operations/autor/Delete.java</file>
             <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/view/livros/RentBook.java</file>
+            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/view/autor/AuthorUpdate.java</file>
             <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/controllers/AutorController.java</file>
+            <file>file:/C:/Users/lucas/Documents/Livraria/src/livraria/models/Autor.java</file>
         </group>
     </open-files>
 </project-private>

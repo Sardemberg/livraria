@@ -33,7 +33,7 @@ public class Update extends BaseOperation {
     }
 
     private void updateLivro(Livro livro) throws SQLException{
-        String query = "update livros set nome = ?, lingua = ?, codigo = ?, ano = ? where id = ?";
+        String query = "update livros set nome = ?, lingua = ?, codigo = ?, ano = ?, autor = ? where id = ?";
 
         PreparedStatement stmt = this.connection.prepareStatement(query);
 
@@ -41,7 +41,8 @@ public class Update extends BaseOperation {
         stmt.setString(2, livro.getLingua());
         stmt.setString(3, livro.getCodigo());
         stmt.setInt(4, livro.getAno());
-        stmt.setInt(5, livro.getId());
+        stmt.setString(5, livro.getAutor());
+        stmt.setInt(6, livro.getId());
 
         stmt.executeUpdate();
         System.out.println("Livro atualizado com sucesso!");

@@ -51,6 +51,7 @@ public class ListAll extends BaseOperation {
             livro.setCodigo(rs.getString("codigo"));
             livro.setLingua(rs.getString("lingua"));
             livro.setAno(rs.getInt("ano"));
+            livro.setAutor(rs.getString("autor"));
 
             livros_results.add(livro);
         }

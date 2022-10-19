@@ -4,9 +4,12 @@
  */
 package livraria.view.livros;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import livraria.models.Livro;
 import livraria.controllers.LivroController;
+import livraria.models.Autor;
+import livraria.controllers.AutorController;
 
 /**
  *
@@ -34,15 +37,24 @@ public class BookRegistration extends javax.swing.JFrame {
         codigoLivro = new javax.swing.JTextField();
         nomeLivro = new javax.swing.JTextField();
         linguaLivro = new javax.swing.JTextField();
-        editoraLivro = new javax.swing.JTextField();
         anoLivro = new javax.swing.JTextField();
         buttonAddLivro = new javax.swing.JButton();
+        autorCbb = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cadastro Livro");
+        jLabel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jLabel1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         codigoLivro.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
         codigoLivro.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -71,15 +83,6 @@ public class BookRegistration extends javax.swing.JFrame {
             }
         });
 
-        editoraLivro.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        editoraLivro.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        editoraLivro.setText("Editora");
-        editoraLivro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editoraLivroActionPerformed(evt);
-            }
-        });
-
         anoLivro.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
         anoLivro.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         anoLivro.setText("Ano");
@@ -97,6 +100,8 @@ public class BookRegistration extends javax.swing.JFrame {
             }
         });
 
+        autorCbb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o autor" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,8 +110,8 @@ public class BookRegistration extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(232, 232, 232)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(autorCbb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(anoLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                    .addComponent(editoraLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                     .addComponent(linguaLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                     .addComponent(nomeLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                     .addComponent(codigoLivro)
@@ -116,7 +121,7 @@ public class BookRegistration extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(codigoLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
@@ -127,13 +132,14 @@ public class BookRegistration extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(anoLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editoraLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                .addGap(32, 32, 32)
+                .addComponent(autorCbb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(buttonAddLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59))
+                .addGap(115, 115, 115))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void codigoLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoLivroActionPerformed
@@ -148,10 +154,6 @@ public class BookRegistration extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_linguaLivroActionPerformed
 
-    private void editoraLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editoraLivroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editoraLivroActionPerformed
-
     private void anoLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anoLivroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_anoLivroActionPerformed
@@ -164,15 +166,27 @@ public class BookRegistration extends javax.swing.JFrame {
         livro.setCodigo(codigoLivro.getText());
         livro.setAno(Integer.parseInt(anoLivro.getText()));
         livro.setLingua(linguaLivro.getText());
+        livro.setAutor((String) autorCbb.getSelectedItem());
         
         boolean result = controllerLivro.create(livro);
         
         if(result){
             JOptionPane.showMessageDialog(null, "Livro cadastrado com sucesso!");
+            this.show(false);
         }else{
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao cadastrar o livro!");
         }
     }//GEN-LAST:event_buttonAddLivroActionPerformed
+
+    private void jLabel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel1AncestorAdded
+        AutorController controllerAutor = new AutorController();
+        
+        ArrayList<Autor> autores = controllerAutor.showAll();
+        
+        for(Autor autor: autores){
+            autorCbb.addItem(autor.getNome());
+        }
+    }//GEN-LAST:event_jLabel1AncestorAdded
 
     /**
      * @param args the command line arguments
@@ -212,9 +226,9 @@ public class BookRegistration extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField anoLivro;
+    private javax.swing.JComboBox<String> autorCbb;
     private javax.swing.JButton buttonAddLivro;
     private javax.swing.JTextField codigoLivro;
-    private javax.swing.JTextField editoraLivro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField linguaLivro;
     private javax.swing.JTextField nomeLivro;

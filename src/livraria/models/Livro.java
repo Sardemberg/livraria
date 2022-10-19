@@ -14,9 +14,17 @@ public class Livro {
     private String nome;
     private String lingua;
     private int ano;
-
+    private String autor;
     
     // Getter and settters
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
     public int getId() {
         return id;
     }
