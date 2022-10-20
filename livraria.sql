@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25-Set-2022 às 17:50
+-- Tempo de geração: 20-Out-2022 às 23:43
 -- Versão do servidor: 10.4.21-MariaDB
 -- versão do PHP: 7.3.31
 
@@ -35,6 +35,16 @@ CREATE TABLE `autores` (
   `biografia` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `autores`
+--
+
+INSERT INTO `autores` (`id`, `nome`, `data_nasc`, `nacionalidade`, `biografia`) VALUES
+(1, 'Hadassa Kiria', '2003-03-25', 'Espanha', 'Um homem e seu aprendiz 2'),
+(8, 'Jamba Sardemberg', '2003-02-26', 'Brasileiro', 'o homi, a maquina'),
+(11, 'TEstando', '1940-07-09', 'Inglesa', 'AAAAA'),
+(12, 'Jamba Karateka', '2003-02-04', 'Canadadesse', 'Caneta azul, azul caneta');
+
 -- --------------------------------------------------------
 
 --
@@ -52,6 +62,13 @@ CREATE TABLE `edicao` (
   `id_editora` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `edicao`
+--
+
+INSERT INTO `edicao` (`id`, `isbn`, `preco`, `ano`, `n_paginas`, `estoque`, `id_livro`, `id_editora`) VALUES
+(1, '123768', 75.78, '0000-00-00', 500, 6, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -62,6 +79,13 @@ CREATE TABLE `editoras` (
   `id` int(10) NOT NULL,
   `nome` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `editoras`
+--
+
+INSERT INTO `editoras` (`id`, `nome`) VALUES
+(1, 'Medusa');
 
 -- --------------------------------------------------------
 
@@ -77,6 +101,13 @@ CREATE TABLE `enderecos_editora` (
   `id_editora` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `enderecos_editora`
+--
+
+INSERT INTO `enderecos_editora` (`id`, `rua`, `cep`, `numero`, `id_editora`) VALUES
+(1, 'Gonçalves tristão', '63122654', 47, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -88,8 +119,21 @@ CREATE TABLE `livros` (
   `codigo` varchar(100) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `lingua` varchar(100) NOT NULL,
-  `ano` date DEFAULT NULL
+  `ano` int(11) DEFAULT NULL,
+  `autor` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `livros`
+--
+
+INSERT INTO `livros` (`id`, `codigo`, `nome`, `lingua`, `ano`, `autor`) VALUES
+(1, '123456', 'Luiza', 'Inglês', 2022, NULL),
+(3, '123456', 'Testando', 'Inglês', 2022, 'Hadassa Kiria'),
+(4, '7022ACB', 'Livro teste 2', 'Inglês', 2022, 'Hadassa Kiria'),
+(6, '75279', 'Olá, esse é um nome', 'Inglês', 2003, 'Lui'),
+(7, 'Não exite', 'TEstando título', 'Brazil', 1901, 'Lucas Sardemberg'),
+(8, '5556', 'O segredo das Jambas', 'Jabanes', 2022, 'Jamba Karateka');
 
 -- --------------------------------------------------------
 
@@ -103,6 +147,13 @@ CREATE TABLE `livro_autor` (
   `livro_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `livro_autor`
+--
+
+INSERT INTO `livro_autor` (`id`, `autor_id`, `livro_id`) VALUES
+(1, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -115,6 +166,13 @@ CREATE TABLE `telefones_editora` (
   `numero` int(9) NOT NULL,
   `id_editora` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `telefones_editora`
+--
+
+INSERT INTO `telefones_editora` (`id`, `ddd`, `numero`, `id_editora`) VALUES
+(1, 88, 99003322, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -176,43 +234,43 @@ ALTER TABLE `telefones_editora`
 -- AUTO_INCREMENT de tabela `autores`
 --
 ALTER TABLE `autores`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `edicao`
 --
 ALTER TABLE `edicao`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `editoras`
 --
 ALTER TABLE `editoras`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `enderecos_editora`
 --
 ALTER TABLE `enderecos_editora`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `livros`
 --
 ALTER TABLE `livros`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `livro_autor`
 --
 ALTER TABLE `livro_autor`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `telefones_editora`
 --
 ALTER TABLE `telefones_editora`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para despejos de tabelas
